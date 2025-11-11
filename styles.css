@@ -96,17 +96,22 @@
 	overflow: hidden;
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 	background: #f0f0f0;
+	min-height: 400px;
 }
 
-.slide {
-	display: none;
+.slide,
+.slideshow-slide {
+	display: none !important;
 	width: 100%;
 	text-align: center;
+	opacity: 0;
+	transition: opacity 0.5s ease-in-out;
 }
 
-.slide.active {
-	display: block;
-	animation: fadeIn 0.5s;
+.slide.active,
+.slideshow-slide.slideshow-active {
+	display: block !important;
+	opacity: 1;
 }
 
 @keyframes fadeIn {

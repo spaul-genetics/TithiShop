@@ -162,137 +162,192 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="product-gallery" class="level3">
 <h3 class="anchored" data-anchor-id="product-gallery">Product Gallery</h3>
+<style>
+.slideshow-slide {
+  display: none !important;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+.slideshow-slide.slideshow-active {
+  display: block !important;
+  opacity: 1;
+}
+</style>
+
 <div class="slideshow-container">
   <div class="slideshow-wrapper">
-    <div class="slide active">
-      <img src="images/product1.jpg" alt="Product Image 1">
+    <div class="slide slideshow-slide slideshow-active" style="display: none !important;">
+      <img src="images/product1.jpg" alt="Product Image 1" loading="lazy">
     </div>
-    <div class="slide">
-      <img src="images/product2.jpg" alt="Product Image 2">
+    <div class="slide slideshow-slide" style="display: none !important;">
+      <img src="images/product2.jpg" alt="Product Image 2" loading="lazy">
     </div>
-    <div class="slide">
-      <img src="images/product3.jpg" alt="Product Image 3">
+    <div class="slide slideshow-slide" style="display: none !important;">
+      <img src="images/product3.jpg" alt="Product Image 3" loading="lazy">
     </div>
-    <div class="slide">
-      <img src="images/product4.jpg" alt="Product Image 4">
+    <div class="slide slideshow-slide" style="display: none !important;">
+      <img src="images/product4.jpg" alt="Product Image 4" loading="lazy">
     </div>
-    <div class="slide">
-      <img src="images/product5.jpg" alt="Product Image 5">
+    <div class="slide slideshow-slide" style="display: none !important;">
+      <img src="images/product5.jpg" alt="Product Image 5" loading="lazy">
     </div>
     
-    <button class="slideshow-btn prev" onclick="changeSlide(-1)">❮</button>
-    <button class="slideshow-btn next" onclick="changeSlide(1)">❯</button>
+    <button class="slideshow-btn prev" onclick="window.tithiSlideshowChange(-1)">❮</button>
+    <button class="slideshow-btn next" onclick="window.tithiSlideshowChange(1)">❯</button>
   </div>
   
   <div class="slideshow-dots">
-    <span class="dot active" onclick="currentSlide(1)"></span>
-    <span class="dot" onclick="currentSlide(2)"></span>
-    <span class="dot" onclick="currentSlide(3)"></span>
-    <span class="dot" onclick="currentSlide(4)"></span>
-    <span class="dot" onclick="currentSlide(5)"></span>
+    <span class="dot slideshow-dot active" onclick="window.tithiSlideshowGoTo(1)"></span>
+    <span class="dot slideshow-dot" onclick="window.tithiSlideshowGoTo(2)"></span>
+    <span class="dot slideshow-dot" onclick="window.tithiSlideshowGoTo(3)"></span>
+    <span class="dot slideshow-dot" onclick="window.tithiSlideshowGoTo(4)"></span>
+    <span class="dot slideshow-dot" onclick="window.tithiSlideshowGoTo(5)"></span>
   </div>
 </div>
 
 <script>
 (function() {
-  let slideIndex = 0;
-  let autoPlayInterval = null;
-  let slides = [];
-  let dots = [];
+  'use strict';
   
-  function initSlideshow() {
-    slides = Array.from(document.getElementsByClassName("slide")).filter(slide => {
-      const img = slide.querySelector('img');
+  let tithiSlideIndex = 0;
+  let tithiAutoPlayInterval = null;
+  let tithiSlides = [];
+  let tithiDots = [];
+  
+  function tithiInitSlideshow() {
+    // Hide all slides immediately
+    tithiSlides = Array.from(document.querySelectorAll('.slideshow-slide'));
+    tithiDots = Array.from(document.querySelectorAll('.slideshow-dot'));
+    
+    // Remove all active classes first
+    tithiSlides.forEach(function(slide) {
+      slide.classList.remove('slideshow-active');
+      slide.style.display = 'none';
+    });
+    
+    tithiDots.forEach(function(dot) {
+      dot.classList.remove('active');
+    });
+    
+    // Filter out slides with missing images
+    tithiSlides = tithiSlides.filter(function(slide, index) {
+      var img = slide.querySelector('img');
       if (img) {
         img.onerror = function() {
           slide.style.display = 'none';
+          if (tithiDots[index]) {
+            tithiDots[index].style.display = 'none';
+          }
         };
+        // Check if image loaded successfully
         if (img.complete && img.naturalHeight === 0) {
           slide.style.display = 'none';
+          if (tithiDots[index]) {
+            tithiDots[index].style.display = 'none';
+          }
           return false;
         }
       }
-      return slide.style.display !== 'none';
+      return true;
     });
     
-    dots = Array.from(document.getElementsByClassName("dot"));
-    
-    document.querySelectorAll('.dot').forEach((dot, index) => {
-      if (!slides[index] || slides[index].style.display === 'none') {
+    // Hide dots for missing slides
+    tithiDots.forEach(function(dot, index) {
+      if (!tithiSlides[index]) {
         dot.style.display = 'none';
       }
     });
   }
   
-  function showSlide(n) {
-    if (slides.length === 0) return;
+  function tithiShowSlide(n) {
+    if (tithiSlides.length === 0) return;
     
-    if (n >= slides.length) slideIndex = 0;
-    else if (n < 0) slideIndex = slides.length - 1;
-    else slideIndex = n;
+    // Normalize index
+    if (n >= tithiSlides.length) {
+      tithiSlideIndex = 0;
+    } else if (n < 0) {
+      tithiSlideIndex = tithiSlides.length - 1;
+    } else {
+      tithiSlideIndex = n;
+    }
     
-    slides.forEach(slide => {
-      if (slide.style.display !== 'none') {
-        slide.classList.remove("active");
-      }
+    // Hide all slides
+    tithiSlides.forEach(function(slide) {
+      slide.classList.remove('slideshow-active');
+      slide.style.display = 'none';
     });
     
-    dots.forEach(dot => dot.classList.remove("active"));
+    // Remove active from all dots
+    tithiDots.forEach(function(dot) {
+      dot.classList.remove('active');
+    });
     
-    if (slides[slideIndex] && slides[slideIndex].style.display !== 'none') {
-      slides[slideIndex].classList.add("active");
-      if (dots[slideIndex]) {
-        dots[slideIndex].classList.add("active");
+    // Show current slide
+    if (tithiSlides[tithiSlideIndex]) {
+      tithiSlides[tithiSlideIndex].classList.add('slideshow-active');
+      tithiSlides[tithiSlideIndex].style.display = 'block';
+      
+      if (tithiDots[tithiSlideIndex]) {
+        tithiDots[tithiSlideIndex].classList.add('active');
       }
     }
   }
   
-  function nextSlide() {
-    showSlide(slideIndex + 1);
+  function tithiNextSlide() {
+    tithiShowSlide(tithiSlideIndex + 1);
   }
   
-  function prevSlide() {
-    showSlide(slideIndex - 1);
+  function tithiStartAutoPlay() {
+    if (tithiAutoPlayInterval) {
+      clearInterval(tithiAutoPlayInterval);
+    }
+    tithiAutoPlayInterval = setInterval(tithiNextSlide, 5000);
   }
   
-  function goToSlide(n) {
-    showSlide(n - 1);
-    resetAutoPlay();
+  function tithiResetAutoPlay() {
+    if (tithiAutoPlayInterval) {
+      clearInterval(tithiAutoPlayInterval);
+    }
+    tithiStartAutoPlay();
   }
   
-  function startAutoPlay() {
-    if (autoPlayInterval) clearInterval(autoPlayInterval);
-    autoPlayInterval = setInterval(nextSlide, 5000);
-  }
-  
-  function resetAutoPlay() {
-    if (autoPlayInterval) clearInterval(autoPlayInterval);
-    startAutoPlay();
-  }
-  
-  window.changeSlide = function(n) {
-    if (n > 0) nextSlide();
-    else prevSlide();
-    resetAutoPlay();
+  // Global functions for onclick handlers
+  window.tithiSlideshowChange = function(n) {
+    if (n > 0) {
+      tithiShowSlide(tithiSlideIndex + 1);
+    } else {
+      tithiShowSlide(tithiSlideIndex - 1);
+    }
+    tithiResetAutoPlay();
   };
   
-  window.currentSlide = function(n) {
-    goToSlide(n);
+  window.tithiSlideshowGoTo = function(n) {
+    tithiShowSlide(n - 1);
+    tithiResetAutoPlay();
   };
   
-  function initialize() {
-    initSlideshow();
-    if (slides.length > 0) {
-      showSlide(0);
-      startAutoPlay();
+  // Initialize immediately
+  function tithiInitialize() {
+    tithiInitSlideshow();
+    if (tithiSlides.length > 0) {
+      tithiShowSlide(0);
+      tithiStartAutoPlay();
     }
   }
   
+  // Run immediately and also on DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initialize);
+    document.addEventListener('DOMContentLoaded', tithiInitialize);
   } else {
-    initialize();
+    // DOM already loaded, run immediately
+    setTimeout(tithiInitialize, 100);
   }
+  
+  // Also run after a short delay to ensure everything is loaded
+  window.addEventListener('load', function() {
+    setTimeout(tithiInitialize, 200);
+  });
 })();
 </script>
 </section>
