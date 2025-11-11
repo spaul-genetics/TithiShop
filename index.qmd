@@ -47,6 +47,144 @@ We are constantly working on adding more authentic Bengali delicacies to our col
 
 </div>
 
+### Product Gallery
+
+```{=html}
+<div class="slideshow-container">
+  <div class="slideshow-wrapper">
+    <div class="slide active">
+      <img src="images/product1.jpg" alt="Product Image 1">
+    </div>
+    <div class="slide">
+      <img src="images/product2.jpg" alt="Product Image 2">
+    </div>
+    <div class="slide">
+      <img src="images/product3.jpg" alt="Product Image 3">
+    </div>
+    <div class="slide">
+      <img src="images/product4.jpg" alt="Product Image 4">
+    </div>
+    <div class="slide">
+      <img src="images/product5.jpg" alt="Product Image 5">
+    </div>
+    
+    <button class="slideshow-btn prev" onclick="changeSlide(-1)">&#10094;</button>
+    <button class="slideshow-btn next" onclick="changeSlide(1)">&#10095;</button>
+  </div>
+  
+  <div class="slideshow-dots">
+    <span class="dot active" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+    <span class="dot" onclick="currentSlide(4)"></span>
+    <span class="dot" onclick="currentSlide(5)"></span>
+  </div>
+</div>
+
+<script>
+(function() {
+  let slideIndex = 0;
+  let autoPlayInterval = null;
+  let slides = [];
+  let dots = [];
+  
+  function initSlideshow() {
+    slides = Array.from(document.getElementsByClassName("slide")).filter(slide => {
+      const img = slide.querySelector('img');
+      if (img) {
+        img.onerror = function() {
+          slide.style.display = 'none';
+        };
+        if (img.complete && img.naturalHeight === 0) {
+          slide.style.display = 'none';
+          return false;
+        }
+      }
+      return slide.style.display !== 'none';
+    });
+    
+    dots = Array.from(document.getElementsByClassName("dot"));
+    
+    document.querySelectorAll('.dot').forEach((dot, index) => {
+      if (!slides[index] || slides[index].style.display === 'none') {
+        dot.style.display = 'none';
+      }
+    });
+  }
+  
+  function showSlide(n) {
+    if (slides.length === 0) return;
+    
+    if (n >= slides.length) slideIndex = 0;
+    else if (n < 0) slideIndex = slides.length - 1;
+    else slideIndex = n;
+    
+    slides.forEach(slide => {
+      if (slide.style.display !== 'none') {
+        slide.classList.remove("active");
+      }
+    });
+    
+    dots.forEach(dot => dot.classList.remove("active"));
+    
+    if (slides[slideIndex] && slides[slideIndex].style.display !== 'none') {
+      slides[slideIndex].classList.add("active");
+      if (dots[slideIndex]) {
+        dots[slideIndex].classList.add("active");
+      }
+    }
+  }
+  
+  function nextSlide() {
+    showSlide(slideIndex + 1);
+  }
+  
+  function prevSlide() {
+    showSlide(slideIndex - 1);
+  }
+  
+  function goToSlide(n) {
+    showSlide(n - 1);
+    resetAutoPlay();
+  }
+  
+  function startAutoPlay() {
+    if (autoPlayInterval) clearInterval(autoPlayInterval);
+    autoPlayInterval = setInterval(nextSlide, 5000);
+  }
+  
+  function resetAutoPlay() {
+    if (autoPlayInterval) clearInterval(autoPlayInterval);
+    startAutoPlay();
+  }
+  
+  window.changeSlide = function(n) {
+    if (n > 0) nextSlide();
+    else prevSlide();
+    resetAutoPlay();
+  };
+  
+  window.currentSlide = function(n) {
+    goToSlide(n);
+  };
+  
+  function initialize() {
+    initSlideshow();
+    if (slides.length > 0) {
+      showSlide(0);
+      startAutoPlay();
+    }
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialize);
+  } else {
+    initialize();
+  }
+})();
+</script>
+```
+
 ## Get In Touch {#contact}
 
 Interested in placing an order or have questions? We'd love to hear from you! Reach out to us through any of the following ways:
