@@ -1,0 +1,95 @@
+/* Hero section */
+.hero {
+	margin-bottom: 2rem;
+	padding: 3rem 2rem;
+	border-radius: 10px;
+}
+
+/* Products container */
+.products-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 2rem;
+	margin: 2rem 0;
+}
+
+/* Product cards */
+.product-card {
+	padding: 2rem;
+	border-radius: 15px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.product-card h3 {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+.product-card p {
+	margin-bottom: 1rem;
+}
+
+.product-card p:last-child {
+	margin-bottom: 0;
+}
+
+/* Contact container */
+.contact-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 2rem;
+	margin: 2rem 0;
+}
+
+/* Contact cards */
+.contact-card {
+	padding: 2rem;
+	border-radius: 15px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.contact-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.contact-card h3 {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+.contact-card p {
+	margin-bottom: 0.5rem;
+}
+
+.contact-card a {
+	display: block;
+	margin-top: 0.5rem;
+}
+
+/* Callout */
+.callout {
+	margin-top: 1rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+	.products-container,
+	.contact-container {
+		grid-template-columns: 1fr;
+	}
+	
+	.hero {
+		padding: 2rem 1rem;
+	}
+}
+
+

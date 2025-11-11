@@ -1,0 +1,78 @@
+---
+title: "TithiShop"
+page-title: false
+format:
+  html:
+    anchor-sections: true
+    toc: false
+---
+
+:::: {.hero .py-5 .text-center .text-white .mb-4 style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"}
+
+## তিথী শপ
+
+### Tithi Shop — Authentic Bengali Ethnic Foods
+
+::::
+
+## About {#about}
+
+Welcome to **TithiShop**! We are passionate about bringing you authentic Bengali ethnic foods made with traditional recipes passed down through generations. Our products are crafted with love, using the finest ingredients and time-honored methods to ensure you get the true taste of Bengal in every bite.
+
+We specialize in homemade pickles, preserves, and other traditional Bengali delicacies that are perfect for adding flavor to your meals and connecting you to your cultural roots.
+
+## Our Products {#products}
+
+<div class="products-container">
+
+<div class="product-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+
+### 🥭 Mango Pickle  
+
+আমের আচার
+
+Traditional Bengali mango pickle made with raw mangoes, mustard oil, and a blend of authentic spices. This tangy and spicy pickle is a perfect accompaniment to your meals and a favorite in every Bengali household.
+
+**Made with:** Fresh mangoes, mustard oil, red chili, turmeric, and traditional spices
+
+</div>
+
+<div class="product-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+
+### 🍋 More Products Coming Soon!
+
+We are constantly working on adding more authentic Bengali delicacies to our collection. Stay tuned for more traditional pickles, chutneys, and preserves!
+
+</div>
+
+</div>
+
+## Get In Touch {#contact}
+
+Interested in placing an order or have questions? We'd love to hear from you! Reach out to us through any of the following ways:
+
+<div class="contact-container">
+
+<div class="contact-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white;">
+### 📧 Email
+Send us an email  
+<a href="mailto:tithi.paul@icloud.com" style="color: white; text-decoration: underline;">tithi.paul@icloud.com</a>
+</div>
+
+<div class="contact-card" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); color: white;">
+### 📱 Phone
+Call or WhatsApp us  
+<a href="tel:+17657728126" style="color: white; text-decoration: underline;">+1 (765) 772-8126</a>
+</div>
+
+<div class="contact-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+### 💬 Social Media
+Connect with us  
+<a href="#" style="text-decoration: underline;">Facebook / Instagram</a>
+</div>
+
+</div>
+
+::: {.callout-note}
+Note: Please update the contact information above with your actual email, phone number, and social media links.
+:::

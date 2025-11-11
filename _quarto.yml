@@ -1,0 +1,30 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "TithiShop"
+  description: "Authentic Bengali Ethnic Foods"
+  navbar:
+    background: primary
+    right:
+      - text: "About"
+        href: index.qmd#about
+      - text: "Products"
+        href: index.qmd#products
+      - text: "Contact"
+        href: index.qmd#contact
+  page-footer:
+    left: "© 2024 TithiShop"
+    right: "Made with ❤️ for the Bengali Community"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 2
+    smooth-scroll: true
+    page-layout: full
+
+
